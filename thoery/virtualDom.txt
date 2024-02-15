@@ -1,0 +1,23 @@
+---> About Create root method
+
+It creates a virtual Dom like structure behind the scenes similar to our project . 
+It compares its DOM structre and the projects DOM structure and only changes specific portion in which the change has happened 
+and not the like the browser which repaints its complete DOM structure even for some minor changes in the project .
+This is the reason behind a browser page reload .
+
+
+This is the advantage of Virtual DOM .
+
+
+
+
+
+
+// -> React Fiber Architecture
+
+https://github.com/acdlite/react-fiber-architecture
+
+
+#-: reconciliation --> the algorithm React uses to diff one project tree with DOM tree and determine
+                    which parts need to be changed .
+
