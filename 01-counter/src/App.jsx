@@ -14,9 +14,31 @@ const App = () => {
 
   const addValue =()=> {    
     console.log("clicked",count);
-    if(count<20){
+    
       setCount(count+1)
-    }
+      setCount(count+1)
+      setCount(count+1)
+      setCount(count+1)
+
+      /* 
+
+      -> This method is used when we have to update a single value multiple times
+      using setstate method . The prevCounter variable here gives the previous value of the state 
+
+      -> the setCount() methood in the state hook returns a callback which contains a previous value and then updates the previous value 
+      by whatever condition is applied .
+
+      -> the code below is the explaination/working of the setCount() method in useState hook.
+      
+      */
+
+      // setCount(prevCounter => prevCounter+1)
+      // setCount(prevCounter => prevCounter+1)
+      // setCount(prevCounter => prevCounter+1)
+      // setCount(prevCounter => prevCounter+1)
+
+
+    
     
     
   }
