@@ -1,69 +1,81 @@
-import {createSlice , nanoid} from '@reduxjs/toolkit'
+import {createSlice , nanoid} from '@reduxjs/toolkit';
+// nanoid --> used to create unique id
 
-// nanoid function is used to generate unique id's only and nothing else 
-
-
-const initialState = { // ---> initial state can be anything i.e an array , object .
-
-    todos: [{ id : 1 , text : "Hello World !!!" }]
-}
 
 /*
 
-Slice can be inferred as a bigger version of a reducer which give multitple options/functionalities including reducer .
+step1 -> create/define initialState 
+step2 -> create slice
 
-A reducer in redux is nothing but a functionality here.
-In redux a reducer can be taken as a pure function ,
-which is responsible for handling state transitions within you application.
-Reducers take a state and an action as an input and then 
-calculate and return new state on the basis of the action given .
 
 */
 
-// const hello = ()=>{
-//     console.log("say hello");
-// }
+const initialState = {
+    todos:[{
+        id:1 ,
+        text: "Hello World !!"
+    }]
+}
+
+
+// eg -->
+
+    // function sayHello() {
+    //     console.log("Say Hello World !!")
+    // }
+
+// in redux toolkit the function is not only declared but defined also 
+
 
 export const todoSlice = createSlice({
-    name:'todo', // ---> name of the slice
-    initialState, // ---> every slice has an initial state which 
-                  //shows the default state value
-
-    reducers: { // reducers contain (properties/actions) and functions
+    name: "todo",
+    initialState,
+    reducers: {
+        // addTodo: sayHello, -->  one way is to create a function and give its reference here like thsi
         
         
         /* 
-        
-        ---> addTodo is a property : hello is a function which can be written as ' ()=>{} '
-        
-        ----> this function will always have access to 2 options which are (state , action )
-        
-        ---> state will give access to all the values in the current initial/defualt state here .
-        eg whether it has one todo app or multiple todos or zero todos etc .
+            whenever we create an addTodo : we will always get access to 2 things -> (state , action), 
+            its like syntax of redux toolkit .
 
-        ---> action parameter represents the type of action which was performed .
-        eg {
-            type: 'ADD_TODO',
-            payload: {
-                id: 1,
-                text: 'Buy groceries',
-                completed: false
-            }
-            }
-        the type property here defines the type of action being performed and 
-        the payload holds the data if present with whatever the action was performed .
-
+            state -: gives the access to the all values present in the initial state
+            
+            action -: gives the values in order to do actions like remove , so in order to remove a todo
+                    we need an (id) . The value of that id will be provided by action .
         */
-        addTodo: (state,action)=>{
+
+        addTodo : (state , action)=>{
+
             const todo = {
-                 id : nanoid() , // id should be unique
-                 text : action.payload, // payload is an object
+                id: nanoid(),
+                text: action.payload
             }
             state.todos.push(todo)
-        
-        },
 
-        
-        removeTodo: ()=>{},
+        },
+        removeTodo: (state , action)=>{
+
+            state.todos = state.todos.filter((todo)=>todo.id !== action.payload)
+
+        },
+        updateTodo: (state,action)=>{
+            state.todos = state.todos.map((todo)=>{
+                if (todo.id === action.payload.id)
+                {
+                    return {
+                        ...todo,
+                        text:action.payload.text,
+                    }
+                }
+                return todo;
+            })
+
+        }
     }
 })
+
+
+
+
+export const {addTodo , removeTodo , updateTodo} = todoSlice.actions
+export default todoSlice.reducer
